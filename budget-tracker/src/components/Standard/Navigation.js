@@ -52,7 +52,7 @@ const MainNav = () => {
                     <Nav className="ml-auto nav">
 
                         <Link to="/dashboard">Dashboard</Link>
-                        <Link to="/">Add Items</Link>
+                        {/* <Link to="/">Add Items</Link> */}
 
 
 

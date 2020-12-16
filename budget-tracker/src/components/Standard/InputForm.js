@@ -1,8 +1,17 @@
 import React from 'react';
 import { Form, FormGroup, Input, Label, Col, Button } from 'reactstrap';
+import DatePicker from "react-datepicker";
 
-const InputForm = ({name, handleName,  category, handleCategory, amount, handleAmount, handleSubmitForm, handleDeleteAllItems}) => (
+const InputForm = ({name, handleName,  category, handleCategory, amount, handleAmount, date, handleDate, handleSubmitForm, handleDeleteAllItems}) => (
   <Form style={{ margin: 10 }}>
+    <FormGroup className="row">
+      <Label sm={2}>
+        Date
+      </Label>
+      <Col sm={4}>
+        <DatePicker selected={date} onChange={handleDate} />
+      </Col>
+    </FormGroup>
     <FormGroup className="row">
       <Label sm={2}>
         Name

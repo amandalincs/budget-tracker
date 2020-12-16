@@ -2,6 +2,9 @@ import { React, useState, useEffect } from 'react'
 import { Jumbotron, Container } from 'reactstrap'
 import InputForm from '../Standard/InputForm'
 import  { Redirect } from 'react-router-dom'
+import moment from 'moment';
+
+
 
 
 // const ALL_ITEMS = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
@@ -13,6 +16,8 @@ function AddItems() {
     const [category, setCategory] = useState('');
     const [amount, setAmount] = useState('');
     const [added, setAdded] = useState(false)
+    const [date, setDate] = useState(new Date());
+
 
 
     useEffect(() => {
@@ -37,6 +42,10 @@ function AddItems() {
         setAmount(event.target.value)
     }
 
+    const handleDate = date => {
+        setDate(date)
+    }
+
     const handleSubmitForm = event => {
         event.preventDefault()
         if (id === ""){
@@ -46,7 +55,7 @@ function AddItems() {
         
         
         if (amount > 0 && name !== "" && category !== "") {
-            const item = { id: '_' + Math.random().toString(36).substr(2, 9), name, category, amount }
+            const item = { id: '_' + Math.random().toString(36).substr(2, 9), name, category, amount, date: date.toLocaleDateString('en-US') }
             console.log("Item: ", item)
             
             setItems([items.push(item)])
@@ -96,9 +105,12 @@ function AddItems() {
                     name={name}
                     category={category}
                     amount={amount}
+                    date={date}
+
                     handleName={handleName}
                     handleCategory={handleCategory}
                     handleAmount={handleAmount}
+                    handleDate={handleDate}
                     handleSubmitForm={handleSubmitForm}
                     handleDeleteAllItems={handleDeleteAllItems}
                 />
