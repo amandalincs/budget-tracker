@@ -6,7 +6,7 @@ const ItemList = ({ items }) => (
     <ListGroup>
       {items.map(item => (
         <ListGroupItem key={item.id}>
-          {item.name} - $ {item.amount}
+          {item.name} - {item.category} - $ {item.amount}
         </ListGroupItem>
       ))}
     </ListGroup>
