@@ -1,4 +1,4 @@
-# budget-tracker
+# Budget Tracker Project
 
 Authors:
 - Amanda Lin, aslin3, aslin3@uci.edu
