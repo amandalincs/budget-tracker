@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, FormGroup, Input, Label, Col, Button } from 'reactstrap';
 
-const InputForm = ({name, amount, handleName, handleAmount, handleSubmitForm}) => (
+const InputForm = ({name, amount, handleName, handleAmount, handleSubmitForm, handleDeleteAllItems}) => (
   <Form style={{ margin: 10 }} onSubmit={handleSubmitForm}>
     <FormGroup className="row">
       <Label for="exampleEmail" sm={2}>
@@ -35,6 +35,9 @@ const InputForm = ({name, amount, handleName, handleAmount, handleSubmitForm}) =
     </FormGroup>
     <Button type="submit" color="primary">
       Add
+    </Button>{' '}
+    <Button type="submit" color="danger" onClick={handleDeleteAllItems}>
+      Delete Items
     </Button>
   </Form>
 )
