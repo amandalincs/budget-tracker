@@ -1,24 +1,30 @@
 import { React, useState, useEffect } from 'react'
 import { Jumbotron, Container } from 'reactstrap'
 import InputForm from '../Standard/InputForm'
-import ItemList from '../Standard/ItemList'
+import  { Redirect } from 'react-router-dom'
 
-const ALL_ITEMS = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
+
+// const ALL_ITEMS = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 
 function AddItems() {
-    const [items, setItems] = useState(ALL_ITEMS);
-    const [id, setId] = useState(0);
+    const [items, setItems] = useState([]);
+    const [id, setId] = useState("");
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [amount, setAmount] = useState('');
+    const [added, setAdded] = useState(false)
+
+
+    useEffect(() => {
+        let ls = JSON.parse(localStorage.getItem('items'))
+        if (ls) setItems(ls)
+    },[])
 
     const handleName = event => {
-        console.log('Name ', event.target.value)
         setName(event.target.value)
     }
 
     const handleCategory = event => {
-        console.log('Category: ', event.target.value)
         let category = event.target.value
 
         if (category !== "-- Select Category --" ||  !category) {setCategory(event.target.value)}
@@ -28,21 +34,30 @@ function AddItems() {
         }
     }
     const handleAmount = event => {
-        console.log('Amount, ', event.target.value)
         setAmount(event.target.value)
     }
 
     const handleSubmitForm = event => {
         event.preventDefault()
+        if (id === ""){
+            console.log("empty")
+            setId(Math.random().toString(36).substr(2, 9))
+        }
+        
+        
         if (amount > 0 && name !== "" && category !== "") {
-            const item = { id, name, category, amount }
-            console.log("ITEM", item)
-            setItems([...items, item])
-            setId(id + 1)
-            setName("")
-            setCategory("")
-            setAmount("")
-            console.log(localStorage)
+            const item = { id: '_' + Math.random().toString(36).substr(2, 9), name, category, amount }
+            console.log("Item: ", item)
+            
+            setItems([items.push(item)])
+            localStorage.setItem('items', JSON.stringify(items))
+            console.log(items)
+            setAdded(true)
+            // setId("")
+            // setName("")
+            // setCategory("-- Select Category --")
+            // setAmount("")
+
         }
 
         else {
@@ -52,12 +67,14 @@ function AddItems() {
 
     const handleDeleteAllItems = () => {
         setItems([])
+        localStorage.clear()
     }
 
-    useEffect(() => {
-        localStorage.setItem('items', JSON.stringify(items))
-    }, [items])
-
+    if (added) {
+        return (
+            <Redirect to='/dashboard'  />
+        )
+    }
     return (
         <Container>
             <Jumbotron fluid>
@@ -85,7 +102,6 @@ function AddItems() {
                     handleSubmitForm={handleSubmitForm}
                     handleDeleteAllItems={handleDeleteAllItems}
                 />
-                <ItemList items={items} />
             </Jumbotron>
         </Container>
     );

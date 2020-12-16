@@ -14,7 +14,7 @@ import AddItems from './components/Pages/AddItems'
           <MainNav />
 
           <Switch>
-            {/* <Route exact path="/" component={Dashboard}/> */}
+            <Route exact path="/dashboard" component={Dashboard}/>
             <Route exact path="/" component={AddItems}/>
             
           </Switch>

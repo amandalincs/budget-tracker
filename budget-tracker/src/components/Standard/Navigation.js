@@ -51,7 +51,7 @@ const MainNav = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto nav">
 
-                        {/* <Link to="/">Dashboard</Link> */}
+                        <Link to="/dashboard">Dashboard</Link>
                         <Link to="/">Add Items</Link>
 
 

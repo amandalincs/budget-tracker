@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, FormGroup, Input, Label, Col, Button } from 'reactstrap';
 
 const InputForm = ({name, handleName,  category, handleCategory, amount, handleAmount, handleSubmitForm, handleDeleteAllItems}) => (
-  <Form style={{ margin: 10 }} onSubmit={handleSubmitForm}>
+  <Form style={{ margin: 10 }}>
     <FormGroup className="row">
       <Label sm={2}>
         Name
@@ -25,7 +25,7 @@ const InputForm = ({name, handleName,  category, handleCategory, amount, handleA
       </Label>
       <Col sm={4}>
 
-        <Input type="select" name="select" id="categorySelect"  onChange={handleCategory}>
+        <Input type="select" name="category" id="categorySelect"  onChange={handleCategory}>
           <option >-- Select Category --</option>
           <option>Food & Drinks</option>
           <option>Transportation</option>
@@ -53,10 +53,10 @@ const InputForm = ({name, handleName,  category, handleCategory, amount, handleA
         />
       </Col>
     </FormGroup>
-    <Button type="submit" color="primary">
+    <Button onClick={handleSubmitForm} color="primary">
       Add
     </Button>{' '}
-    <Button type="submit" color="danger" onClick={handleDeleteAllItems}>
+    <Button color="danger" onClick={handleDeleteAllItems}>
       Delete Items
     </Button>
   </Form>
