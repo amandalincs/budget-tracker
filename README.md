@@ -2,7 +2,7 @@
 
 Authors:
 - Amanda Lin, aslin3, aslin3@uci.edu
-- Kevin Huynh, ____, ______
+- Kevin Huynh, khuynh7, khuynh7@uci.edu
 
 How to Build and Run Project:
 1. cd into the "budget-tracker" folder within the repository folder
