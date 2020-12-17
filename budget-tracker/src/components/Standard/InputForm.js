@@ -64,8 +64,7 @@ const InputForm = ({name, handleName,  category, handleCategory, amount, handleA
     </FormGroup>
     <Button onClick={handleSubmitForm} color="primary">
       Add
-    </Button>{' '}
-
+    </Button>
   </Form>
 )
 

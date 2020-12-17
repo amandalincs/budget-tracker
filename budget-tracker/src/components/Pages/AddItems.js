@@ -97,9 +97,9 @@ function AddItems() {
                     </Button>
                 </div>
                 <h3 className="display-6 text-center">
-                    My Budget Tracker
+                    New Expense
                 </h3>
-                <div className="text-center">
+                {/* <div className="text-center">
                     <p>
                         Total Spendings:{' '}
                         <span className="text-success">
@@ -109,7 +109,7 @@ function AddItems() {
                             }, 0)}
                         </span>
                     </p>
-                </div>
+                </div> */}
                 <InputForm
                     name={name}
                     category={category}
