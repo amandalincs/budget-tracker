@@ -82,7 +82,7 @@ function AddItems() {
 
     if (added || back) {
         return (
-            <Redirect to='/dashboard'  />
+            <Redirect to='/'  />
         )
     }
 

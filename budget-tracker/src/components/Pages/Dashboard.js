@@ -117,7 +117,7 @@ function Dashboard() {
             <Container>
                 <div className="header">
                     <span className="title">Overview</span>
-                    <Link to="/"><Button>Add Expense</Button></Link>
+                    <Link to="/add_expense"><Button>Add Expense</Button></Link>
                 </div>
 
                 <CardDeck style={{marginTop: 20}}>
