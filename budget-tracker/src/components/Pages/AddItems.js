@@ -1,9 +1,9 @@
 import { React, useState, useEffect } from 'react'
-import { Jumbotron, Container } from 'reactstrap'
+import { Jumbotron, Container, Button } from 'reactstrap'
 import InputForm from '../Standard/InputForm'
 import  { Redirect } from 'react-router-dom'
-import moment from 'moment';
 
+import { FaArrowLeft } from 'react-icons/fa';
 
 
 
@@ -17,6 +17,8 @@ function AddItems() {
     const [amount, setAmount] = useState('');
     const [added, setAdded] = useState(false)
     const [date, setDate] = useState(new Date());
+    const [back, setBack] = useState(false)
+
 
 
 
@@ -74,22 +76,29 @@ function AddItems() {
         }
     }
 
-    const handleDeleteAllItems = () => {
-        setItems([])
-        localStorage.clear()
+    const backToDashboard = () => {
+        setBack(true)
     }
 
-    if (added) {
+    if (added || back) {
         return (
             <Redirect to='/dashboard'  />
         )
     }
+
+    
     return (
         <Container>
-            <Jumbotron fluid>
+
+            <Jumbotron fluid style={{paddingTop: '5px'}}>
+                <div>
+                    <Button style={{margin: '10px', display: 'flex', alignItems:'center'}} onClick={backToDashboard}> 
+                        <FaArrowLeft/> <span style={{marginLeft: '5px'}}>Back</span>
+                    </Button>
+                </div>
                 <h3 className="display-6 text-center">
                     My Budget Tracker
-        </h3>
+                </h3>
                 <div className="text-center">
                     <p>
                         Total Spendings:{' '}
@@ -112,7 +121,6 @@ function AddItems() {
                     handleAmount={handleAmount}
                     handleDate={handleDate}
                     handleSubmitForm={handleSubmitForm}
-                    handleDeleteAllItems={handleDeleteAllItems}
                 />
             </Jumbotron>
         </Container>

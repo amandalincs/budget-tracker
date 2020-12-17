@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, FormGroup, Input, Label, Col, Button } from 'reactstrap';
 import DatePicker from "react-datepicker";
 
-const InputForm = ({name, handleName,  category, handleCategory, amount, handleAmount, date, handleDate, handleSubmitForm, handleDeleteAllItems}) => (
+const InputForm = ({name, handleName,  category, handleCategory, amount, handleAmount, date, handleDate, handleSubmitForm}) => (
   <Form style={{ margin: 10 }}>
     <FormGroup className="row">
       <Label sm={2}>
@@ -65,9 +65,7 @@ const InputForm = ({name, handleName,  category, handleCategory, amount, handleA
     <Button onClick={handleSubmitForm} color="primary">
       Add
     </Button>{' '}
-    <Button color="danger" onClick={handleDeleteAllItems}>
-      Delete Items
-    </Button>
+
   </Form>
 )
 
