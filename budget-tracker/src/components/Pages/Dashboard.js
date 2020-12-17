@@ -50,7 +50,7 @@ function Dashboard() {
         console.log(item)
     }
     const handleDeleteItem = (event) => {
-        let id = event.currentTarget.value
+        let id = event.target.value
         let new_items = items.filter( (expense) => {
             return expense.id !== id
         })

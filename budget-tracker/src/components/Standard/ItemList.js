@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState } from 'react';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,18 +8,23 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
-import { Button } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
 const Styles = styled.div`
     
 `;
 
-const handleIconClick = (event) =>{
-  return event.stopPropogration
+
+const ItemList = ({ items, handleDeleteItem }) => {
+
+  const [confirmDelete, setConfirmDelete] = useState(false)
+
+  const toggleConfirmation = () =>{
+    setConfirmDelete(!confirmDelete)
 }
 
-const ItemList = ({ items, handleDeleteItem }) => (
+  return(
   <Styles>
     {/* <ListGroup >
       {items.map(item => (
@@ -49,7 +54,19 @@ const ItemList = ({ items, handleDeleteItem }) => (
               <TableCell align="right">{item.name}</TableCell>
               <TableCell align="right">{item.category}</TableCell>
               <TableCell align="right">  ${item.amount}</TableCell>
-              <TableCell align="right"> <Button color="danger" outline value={item.id} onClick={handleDeleteItem}><FaTrash/></Button></TableCell>
+              <TableCell align="right"> 
+
+              {confirmDelete ? 
+
+                (
+                  <div><Button style={{paddingRight: '10px'}} color="danger" value={item.id} onClick={handleDeleteItem}>Delete</Button>
+                  <Button outline color="secondary" onClick={toggleConfirmation}>Cancel</Button></div>
+                )
+                :
+                (<Button color="danger" outline onClick={toggleConfirmation}><FaTrash/></Button>)
+
+              } 
+              </TableCell>
 
             </TableRow>
           ))}
@@ -57,6 +74,7 @@ const ItemList = ({ items, handleDeleteItem }) => (
       </Table>
     </TableContainer>
   </Styles>
-)
+  )
+}
 
 export default ItemList;
