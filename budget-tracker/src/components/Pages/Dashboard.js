@@ -101,7 +101,6 @@ function Dashboard() {
         if (ls) {
             setProcessedItems(ls)
             
-            console.log(items[0].category.toLowerCase().replaceAll('&', '_').replaceAll(" ", ''))
             if (filterBy !== 'all'){
                 let sorted_items = ls.filter(expense => {
                     return expense.category.toLowerCase().replaceAll('&', '_').replaceAll(" ", '') === filterBy
