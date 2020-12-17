@@ -98,14 +98,17 @@ function Dashboard() {
 
     useEffect(() => {
         let ls = JSON.parse(localStorage.getItem('items'))
-        if (ls) {setProcessedItems(ls)}
-
-        if (filterBy !== 'all'){
-            let sorted_items = ls.filter(expense => {
-                return expense.category.toLowerCase().replaceAll('&', '_').replaceAll(" ", '') === filterBy
-            })
-            setProcessedItems(sorted_items)
+        if (ls) {
+            setProcessedItems(ls)
             
+            console.log(items[0].category.toLowerCase().replaceAll('&', '_').replaceAll(" ", ''))
+            if (filterBy !== 'all'){
+                let sorted_items = ls.filter(expense => {
+                    return expense.category.toLowerCase().replaceAll('&', '_').replaceAll(" ", '') === filterBy
+                })
+                setProcessedItems(sorted_items)
+                
+            }
         }
 
     },[filterBy])
@@ -215,7 +218,7 @@ function Dashboard() {
                                         <MenuItem value="food_drinks">Food & Drinks</MenuItem>
                                         <MenuItem value="transportation">Transportation</MenuItem>
                                         <MenuItem value="housing_utilities">Housing & Utilities</MenuItem>
-                                        <MenuItem value="clothing<">Clothing</MenuItem>
+                                        <MenuItem value="clothing">Clothing</MenuItem>
                                         <MenuItem value="entertainment">Entertainment</MenuItem>
                                         <MenuItem value="medical">Medical</MenuItem>
                                         <MenuItem value="miscellaneous">Miscellaneous</MenuItem>
