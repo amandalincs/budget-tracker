@@ -14,7 +14,7 @@ This project will be a Budget Tracker application. This budget tracker applicati
 
 
 ## Requirements 
-* Note: We completed all the requirements we specified in our project plan, but we replaced one: "Able to provide graph analysis of weekly spending aggregates" with the following new requirement: "Able to set a budget and calculate remaining budget" because we found it a more beneficial feature for a budget tracking app for users to be able to set and update their budget and also view how much left they can spend or if they have overspent based on their expenses.
+**Note**: We completed all the requirements we specified in our project plan, but we replaced one: "Able to provide graph analysis of weekly spending aggregates" with the following new requirement: "Able to set a budget and calculate remaining budget" because we found it a more beneficial feature for a budget tracking app for users to be able to set and update their budget and also view how much left they can spend or if they have overspent based on their expenses.
 
 - Able to log an expense with a category and dollar amount
 - Able to take in user input and display their data in a useful way
