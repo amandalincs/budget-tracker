@@ -69,7 +69,7 @@ function Dashboard() {
         })
         localStorage.setItem('items', JSON.stringify(new_items))
         setItems(new_items)
-        setFilterBy('all')
+        window.location.reload(false);
 
     }
 
