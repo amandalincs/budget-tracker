@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react'
-import { Card, CardDeck, CardTitle, CardBody, CardSubtitle, CardText, Button, Container, Modal, ModalHeader, ModalBody, ModalFooter  } from 'reactstrap'
+import { Card, CardDeck, CardTitle, CardBody, CardSubtitle, CardText, Button, Container, Modal, ModalHeader, ModalBody, ModalFooter, Input  } from 'reactstrap'
 import styled from 'styled-components';
 import ItemList from '../Standard/ItemList' 
 import {Link} from 'react-router-dom'
@@ -33,11 +33,12 @@ function Dashboard() {
 
     const [items, setItems] = useState([])
     const [processedItems, setProcessedItems] = useState([])
-    const [budget, setBudget] = useState(0)
     const [remainingBudget, setRemainingBudget] = useState(0)
     const [deleteModal, setDeleteModal] = useState(false);
     const [filterBy, setFilterBy] = useState("all")
-
+    const [budget, setBudget] = useState('1000.00')
+    const [budgetModal, setBudgetModal] = useState(false);
+    const [budgetModalVal, setBudgetModalVal] = useState('')
     // const handleDeleteAllItems = () => {
     //     setItems([])
     // }
@@ -51,6 +52,11 @@ function Dashboard() {
         let item = event.target.value
         setFilterBy(item)
     }
+    const toggleBudgetModal = () => {
+        setBudgetModal(!budgetModal)
+        setBudgetModalVal('')
+    }
+
     const handleDeleteAllItems = () => {
         setItems([])
         localStorage.clear()        
@@ -67,12 +73,25 @@ function Dashboard() {
 
     }
 
+    const handleBudgetModalVal = event => {
+        setBudgetModalVal(event.target.value)
+    }
+
+    const handleSetBudget = () => {
+        localStorage.setItem('budget', parseFloat(budgetModalVal).toFixed(2))
+        setBudget(parseFloat(budgetModalVal).toFixed(2))
+        toggleBudgetModal()
+    }
+
+
     useEffect(() => {
         let ls = JSON.parse(localStorage.getItem('items'))
+        let b = JSON.parse(localStorage.getItem('budget'))
         if (ls) {
             setItems(ls); 
             setProcessedItems(ls)
         }
+        if (b) setBudget(parseFloat(b).toFixed(2))
     },[])
 
     useEffect(() => {
@@ -80,7 +99,7 @@ function Dashboard() {
         if (ls) {setProcessedItems(ls)}
 
         if (filterBy !== 'all'){
-            let sorted_items = items.filter(expense => {
+            let sorted_items = ls.filter(expense => {
                 return expense.category.toLowerCase().replaceAll('&', '_').replaceAll(" ", '') === filterBy
             })
             setProcessedItems(sorted_items)
@@ -97,11 +116,29 @@ function Dashboard() {
                     <Link to="/"><Button>Add Expense</Button></Link>
                 </div>
 
-                <CardDeck>
+                <CardDeck style={{marginTop: 20}}>
                     <Card>
                         <CardBody>
                             <CardTitle>
-                                Total Budget{' '}
+                                <span>Total Budget{' '}</span>
+                                {<Button style={{float: "right"}} onClick={toggleBudgetModal}>Set Budget</Button>}
+                                <Modal isOpen={budgetModal} toggle={toggleBudgetModal} className="">
+                                    <ModalHeader toggle={toggleBudgetModal}>Set your budget</ModalHeader>
+                                    <ModalBody>
+                                    <Input 
+                                        type="number" 
+                                        name="totalBudget" 
+                                        id="totalBudget" 
+                                        placeholder="0.00"
+                                        value={budgetModalVal}
+                                        onChange={handleBudgetModalVal}
+                                    />
+                                    </ModalBody>
+                                    <ModalFooter>
+                                        <Button color="secondary" onClick={toggleBudgetModal}>Cancel</Button>
+                                        <Button color="primary" onClick={handleSetBudget}>Confirm</Button>{' '}
+                                    </ModalFooter>
+                                </Modal>
                             </CardTitle>
                             <CardText>
                                 <span className="text-success">
@@ -131,18 +168,21 @@ function Dashboard() {
                     <Card>
                         <CardBody>
                             <CardTitle>
-                                Remaining Budget{' '}
+                                Remaining Budget {' '}
                             </CardTitle>
                             <CardText>
                                 <span className="text-success">
-                                    ${remainingBudget}
+                                    ${(budget - (items.reduce((accumulator, currentValue) => {
+                                        return (accumulator += parseFloat(currentValue.amount))
+                                    }, 0))).toFixed(2)}
                                 </span>
                             </CardText>
                         </CardBody>
                     </Card>
                 </CardDeck>
 
-                <Card>
+                <Card style={{marginTop: 20}}>
+                <CardBody>
                     <div className="data-header">
                         <span>All Expenses</span>
                         <div>
@@ -180,12 +220,13 @@ function Dashboard() {
                                 </ModalFooter>
                             </Modal>
                         </div>
+                    
                     </div>
-
                     {processedItems.length > 0 ?
                     (<ItemList items={processedItems} handleDeleteItem={handleDeleteItem}></ItemList>) 
                     : (<div style={{textAlign: 'center', padding: '20px 10px'}}>No Data Available</div>)
                     }
+                    </CardBody>
                 </Card>
 
             </Container>
