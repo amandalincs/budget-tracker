@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button} from 'reactstrap';
 
 
 const Styles = styled.div`
@@ -19,9 +19,12 @@ const Styles = styled.div`
 const ItemList = ({ items, handleDeleteItem }) => {
 
   const [confirmDelete, setConfirmDelete] = useState(false)
+  const [selectedItem, setSelectedItem] = useState('')
+  
 
   const toggleConfirmation = () =>{
     setConfirmDelete(!confirmDelete)
+    
 }
 
   return(
@@ -56,14 +59,14 @@ const ItemList = ({ items, handleDeleteItem }) => {
               <TableCell align="right">  ${item.amount}</TableCell>
               <TableCell align="right"> 
 
-              {confirmDelete ? 
+              {confirmDelete && selectedItem === item.id? 
 
                 (
                   <div><Button style={{paddingRight: '10px'}} color="danger" value={item.id} onClick={handleDeleteItem}>Delete</Button>
                   <Button outline color="secondary" onClick={toggleConfirmation}>Cancel</Button></div>
                 )
                 :
-                (<Button color="danger" outline onClick={toggleConfirmation}><FaTrash/></Button>)
+                (<Button color="danger" outline onClick={() => {setSelectedItem(item.id); toggleConfirmation()}}><FaTrash/></Button>)
 
               } 
               </TableCell>

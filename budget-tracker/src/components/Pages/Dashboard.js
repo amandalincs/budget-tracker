@@ -3,6 +3,8 @@ import { Card, CardDeck, CardTitle, CardBody, CardSubtitle, CardText, Button, Co
 import styled from 'styled-components';
 import ItemList from '../Standard/ItemList' 
 import {Link} from 'react-router-dom'
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 
 const Styles = styled.div`
@@ -30,10 +32,12 @@ const Styles = styled.div`
 function Dashboard() {
 
     const [items, setItems] = useState([])
+    const [processedItems, setProcessedItems] = useState([])
     const [budget, setBudget] = useState(0)
     const [remainingBudget, setRemainingBudget] = useState(0)
-    const [itemToDelete, setItemToDelete] = useState()
     const [deleteModal, setDeleteModal] = useState(false);
+    const [filterBy, setFilterBy] = useState("all")
+
     // const handleDeleteAllItems = () => {
     //     setItems([])
     // }
@@ -43,14 +47,15 @@ function Dashboard() {
         setDeleteModal(!deleteModal)
     }
 
+    const handleFilterBy = (event) => {
+        let item = event.target.value
+        setFilterBy(item)
+    }
     const handleDeleteAllItems = () => {
         setItems([])
         localStorage.clear()        
     }
 
-    const handleItemToDelete = (item) => {
-        console.log(item)
-    }
     const handleDeleteItem = (event) => {
         let id = event.target.value
         let new_items = items.filter( (expense) => {
@@ -58,13 +63,31 @@ function Dashboard() {
         })
         localStorage.setItem('items', JSON.stringify(new_items))
         setItems(new_items)
+        setFilterBy('all')
 
     }
 
     useEffect(() => {
         let ls = JSON.parse(localStorage.getItem('items'))
-        if (ls) setItems(ls)
+        if (ls) {
+            setItems(ls); 
+            setProcessedItems(ls)
+        }
     },[])
+
+    useEffect(() => {
+        let ls = JSON.parse(localStorage.getItem('items'))
+        if (ls) {setProcessedItems(ls)}
+
+        if (filterBy !== 'all'){
+            let sorted_items = items.filter(expense => {
+                return expense.category.toLowerCase().replaceAll('&', '_').replaceAll(" ", '') === filterBy
+            })
+            setProcessedItems(sorted_items)
+            
+        }
+
+    },[filterBy])
 
     return (
         <Styles>
@@ -122,21 +145,45 @@ function Dashboard() {
                 <Card>
                     <div className="data-header">
                         <span>All Expenses</span>
-                        {items.length > 0 && <Button outline color="danger" onClick={toggleModal}>Clear All</Button>}
-                        <Modal isOpen={deleteModal} toggle={toggleModal} className="">
-                            <ModalHeader toggle={toggleModal}>Are you sure?</ModalHeader>
-                            <ModalBody>
-                                You are about to delete all expenses.
-                            </ModalBody>
-                            <ModalFooter>
-                            <Button color="danger" onClick={handleDeleteAllItems}>Delete</Button>{' '}
-                            <Button color="secondary" onClick={toggleModal}>Cancel</Button>
-                            </ModalFooter>
-                        </Modal>
+                        <div>
+                            <span>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={filterBy}
+                                    onChange={handleFilterBy}
+                                    style={{margin:'10px'}}
+                                    >   
+                                        <MenuItem value="all">
+                                            All 
+                                        </MenuItem>
+                                        <MenuItem value="food_drinks">Food & Drinks</MenuItem>
+                                        <MenuItem value="transportation">Transportation</MenuItem>
+                                        <MenuItem value="housing_utilities">Housing & Utilities</MenuItem>
+                                        <MenuItem value="clothing<">Clothing</MenuItem>
+                                        <MenuItem value="entertainment">Entertainment</MenuItem>
+                                        <MenuItem value="medical">Medical</MenuItem>
+                                        <MenuItem value="miscellaneous">Miscellaneous</MenuItem>
+
+                                    </Select>
+                            </span>
+                    
+                            {items.length > 0 && <Button outline color="danger" onClick={toggleModal}>Clear All</Button>}
+                            <Modal isOpen={deleteModal} toggle={toggleModal} className="">
+                                <ModalHeader toggle={toggleModal}>Are you sure?</ModalHeader>
+                                <ModalBody>
+                                    You are about to delete all expenses.
+                                </ModalBody>
+                                <ModalFooter>
+                                <Button color="danger" onClick={handleDeleteAllItems}>Delete</Button>{' '}
+                                <Button color="secondary" onClick={toggleModal}>Cancel</Button>
+                                </ModalFooter>
+                            </Modal>
+                        </div>
                     </div>
 
-                    {items.length > 0 ?
-                    (<ItemList items={items} handleItemToDelete={handleItemToDelete} handleDeleteItem={handleDeleteItem}></ItemList>) 
+                    {processedItems.length > 0 ?
+                    (<ItemList items={processedItems} handleDeleteItem={handleDeleteItem}></ItemList>) 
                     : (<div style={{textAlign: 'center', padding: '20px 10px'}}>No Data Available</div>)
                     }
                 </Card>
