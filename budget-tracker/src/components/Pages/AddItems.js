@@ -88,9 +88,9 @@ function AddItems() {
         <Container>
             <Jumbotron fluid>
                 <h3 className="display-6 text-center">
-                    My Budget Tracker
-        </h3>
-                <div className="text-center">
+                    New Expense
+                </h3>
+                {/* <div className="text-center">
                     <p>
                         Total Spendings:{' '}
                         <span className="text-success">
@@ -100,7 +100,7 @@ function AddItems() {
                             }, 0)}
                         </span>
                     </p>
-                </div>
+                </div> */}
                 <InputForm
                     name={name}
                     category={category}
