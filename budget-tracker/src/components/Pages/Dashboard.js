@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react'
-import { Card, CardDeck, CardTitle, CardBody, CardSubtitle, CardText, Button, Container, Modal, ModalHeader, ModalBody, ModalFooter, Input  } from 'reactstrap'
+import { Card, CardDeck, CardTitle, CardBody, CardSubtitle, CardText, Button, Container, Modal, ModalHeader, ModalBody, ModalFooter, Input, Col  } from 'reactstrap'
 import styled from 'styled-components';
 import ItemList from '../Standard/ItemList' 
 import {Link} from 'react-router-dom'
@@ -101,7 +101,6 @@ function Dashboard() {
         if (ls) {
             setProcessedItems(ls)
             
-            console.log(items[0].category.toLowerCase().replaceAll('&', '_').replaceAll(" ", ''))
             if (filterBy !== 'all'){
                 let sorted_items = ls.filter(expense => {
                     return expense.category.toLowerCase().replaceAll('&', '_').replaceAll(" ", '') === filterBy
@@ -123,10 +122,19 @@ function Dashboard() {
 
                 <CardDeck style={{marginTop: 20}}>
                     <Card>
-                        <CardBody>
-                            <CardTitle>
-                                <span>Total Budget{' '}</span>
-                                {<Button style={{float: "right"}} onClick={toggleBudgetModal}>Set Budget</Button>}
+                        <CardBody className="row" style={{alignItems:"center"}} >
+                            <Col sm="12" lg="6">
+                                <CardTitle>
+                                    <span>Total Budget{' '}</span>
+                                </CardTitle>
+                                <CardText>
+                                    <span className="text-success">
+                                        $ {budget}
+                                    </span>
+                                </CardText>
+                            </Col>
+                            <Col>
+                                {<Button onClick={toggleBudgetModal}>Set Budget</Button>}
                                 <Modal isOpen={budgetModal} toggle={toggleBudgetModal} className="">
                                     <ModalHeader toggle={toggleBudgetModal}>Set your budget</ModalHeader>
                                     <ModalBody>
@@ -144,12 +152,7 @@ function Dashboard() {
                                         <Button color="primary" onClick={handleSetBudget}>Confirm</Button>{' '}
                                     </ModalFooter>
                                 </Modal>
-                            </CardTitle>
-                            <CardText>
-                                <span className="text-success">
-                                    $ {budget}
-                                </span>
-                            </CardText>
+                            </Col>
                         </CardBody>
                     </Card>
 
@@ -176,11 +179,20 @@ function Dashboard() {
                                 Remaining Budget {' '}
                             </CardTitle>
                             <CardText>
-                                <span className="text-success">
+                                { budget - (items.reduce((accumulator, currentValue) => {
+                                        return (accumulator += parseFloat(currentValue.amount))
+                                    }, 0)) > 0 && <span className="text-success">
                                     ${(budget - (items.reduce((accumulator, currentValue) => {
                                         return (accumulator += parseFloat(currentValue.amount))
                                     }, 0))).toFixed(2)}
-                                </span>
+                                </span>}
+                                { budget - (items.reduce((accumulator, currentValue) => {
+                                        return (accumulator += parseFloat(currentValue.amount))
+                                    }, 0)) <= 0 && <span className="text-danger">
+                                    ${(budget - (items.reduce((accumulator, currentValue) => {
+                                        return (accumulator += parseFloat(currentValue.amount))
+                                    }, 0))).toFixed(2)}
+                                </span>}
                             </CardText>
                         </CardBody>
                     </Card>
