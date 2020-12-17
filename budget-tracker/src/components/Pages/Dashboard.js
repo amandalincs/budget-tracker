@@ -30,7 +30,7 @@ const Styles = styled.div`
 function Dashboard() {
 
     const [items, setItems] = useState([])
-    const [budget, setBudget] = useState(1000)
+    const [budget, setBudget] = useState('1000.00')
     const [itemToDelete, setItemToDelete] = useState()
     const [deleteModal, setDeleteModal] = useState(false);
     const [budgetModal, setBudgetModal] = useState(false);
@@ -72,8 +72,8 @@ function Dashboard() {
     }
 
     const handleSetBudget = () => {
-        localStorage.setItem('budget', budgetModalVal)
-        setBudget(budgetModalVal)
+        localStorage.setItem('budget', parseFloat(budgetModalVal).toFixed(2))
+        setBudget(parseFloat(budgetModalVal).toFixed(2))
         toggleBudgetModal()
     }
 
@@ -82,7 +82,7 @@ function Dashboard() {
         let ls = JSON.parse(localStorage.getItem('items'))
         let b = JSON.parse(localStorage.getItem('budget'))
         if (ls) setItems(ls)
-        if (b) setBudget(b)
+        if (b) setBudget(parseFloat(b).toFixed(2))
     },[])
 
     return (
@@ -98,7 +98,7 @@ function Dashboard() {
                         <CardBody>
                             <CardTitle>
                                 <span>Total Budget{' '}</span>
-                                {<Button onClick={toggleBudgetModal}>Set Budget</Button>}
+                                {<Button style={{float: "right"}} onClick={toggleBudgetModal}>Set Budget</Button>}
                                 <Modal isOpen={budgetModal} toggle={toggleBudgetModal} className="">
                                     <ModalHeader toggle={toggleBudgetModal}>Set your budget</ModalHeader>
                                     <ModalBody>
