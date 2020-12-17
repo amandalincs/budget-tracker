@@ -1,12 +1,14 @@
 import { React, useState, useEffect } from 'react'
-import { Card, CardDeck, CardTitle, CardBody, CardSubtitle, CardText, Button, Container, Modal, ModalHeader, ModalBody, ModalFooter, Input, Col  } from 'reactstrap'
+import { Card, CardDeck, CardTitle, CardBody, CardText, Button, Container, Modal, ModalHeader, ModalBody, ModalFooter, Input, Col  } from 'reactstrap'
 import styled from 'styled-components';
 import ItemList from '../Standard/ItemList' 
 import {Link} from 'react-router-dom'
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
+// DASHBOARD PAGE: displays an overview of the user's budget and spending data
 
+// Styling for the dashboard elements:
 const Styles = styled.div`
     
     .title{
@@ -28,22 +30,19 @@ const Styles = styled.div`
 
 `;
 
-
+// Functions and variables needed for handling dashboard elements:
 function Dashboard() {
 
+    // Setting variables to keep track of state:
     const [items, setItems] = useState([])
     const [processedItems, setProcessedItems] = useState([])
-    const [remainingBudget, setRemainingBudget] = useState(0)
     const [deleteModal, setDeleteModal] = useState(false);
     const [filterBy, setFilterBy] = useState("all")
     const [budget, setBudget] = useState('1000.00')
     const [budgetModal, setBudgetModal] = useState(false);
     const [budgetModalVal, setBudgetModalVal] = useState('')
-    // const handleDeleteAllItems = () => {
-    //     setItems([])
-    // }
 
-
+    // Functions that handle changes and updates to elements:
     const toggleModal = () =>{
         setDeleteModal(!deleteModal)
     }
@@ -64,6 +63,7 @@ function Dashboard() {
         toggleModal()       
     }
 
+    // Add items to local storage:
     const handleDeleteItem = (event) => {
         let id = event.target.value     
         let new_items = items.filter( (expense) => {
@@ -79,13 +79,14 @@ function Dashboard() {
         setBudgetModalVal(event.target.value)
     }
 
+    // Add budget to local storage:
     const handleSetBudget = () => {
         localStorage.setItem('budget', parseFloat(budgetModalVal).toFixed(2))
         setBudget(parseFloat(budgetModalVal).toFixed(2))
         toggleBudgetModal()
     }
 
-
+    // Get local storage and update dashboard:
     useEffect(() => {
         let ls = JSON.parse(localStorage.getItem('items'))
         let b = JSON.parse(localStorage.getItem('budget'))
@@ -112,6 +113,7 @@ function Dashboard() {
 
     },[filterBy])
 
+    // HTML for dashboard:
     return (
         <Styles>
             <Container>
@@ -171,7 +173,6 @@ function Dashboard() {
                             </CardText>
                         </CardBody>
                     </Card>
-
 
                     <Card>
                         <CardBody>
@@ -247,7 +248,6 @@ function Dashboard() {
                     }
                     </CardBody>
                 </Card>
-
             </Container>
         </Styles>
             

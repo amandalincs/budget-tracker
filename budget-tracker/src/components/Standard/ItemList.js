@@ -10,11 +10,11 @@ import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
 import { Button} from 'reactstrap';
 
+// ITEM LIST COMPONENT: displays a table with a list of all the user's expenses
 
 const Styles = styled.div`
     
 `;
-
 
 const ItemList = ({ items, handleDeleteItem }) => {
 
@@ -29,13 +29,6 @@ const ItemList = ({ items, handleDeleteItem }) => {
 
   return(
   <Styles>
-    {/* <ListGroup >
-      {items.map(item => (
-        <ListGroupItem key={item.id}>
-          {item.date} - {item.name} - {item.category} - $ {item.amount} 
-        </ListGroupItem>
-      ))}
-    </ListGroup>     */}
     <TableContainer>
       <Table aria-label="simple table">
         <TableHead>

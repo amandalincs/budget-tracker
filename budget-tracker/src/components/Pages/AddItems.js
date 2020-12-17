@@ -2,14 +2,14 @@ import { React, useState, useEffect } from 'react'
 import { Jumbotron, Container, Button } from 'reactstrap'
 import InputForm from '../Standard/InputForm'
 import  { Redirect } from 'react-router-dom'
-
 import { FaArrowLeft } from 'react-icons/fa';
 
+// ADD ITEM PAGE: allows users to add a new expense to their spending
 
-
-// const ALL_ITEMS = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
-
+// Functions and variables needed for handling new item elements:
 function AddItems() {
+
+    // Setting variables to keep track of state:
     const [items, setItems] = useState([]);
     const [id, setId] = useState("");
     const [name, setName] = useState('');
@@ -19,14 +19,13 @@ function AddItems() {
     const [date, setDate] = useState(new Date());
     const [back, setBack] = useState(false)
 
-
-
-
+    // Get local storage items and update items:
     useEffect(() => {
         let ls = JSON.parse(localStorage.getItem('items'))
         if (ls) setItems(ls)
     },[])
 
+    // Functions that handle changes and updates to elements:
     const handleName = event => {
         setName(event.target.value)
     }
@@ -64,11 +63,6 @@ function AddItems() {
             localStorage.setItem('items', JSON.stringify(items))
             console.log(items)
             setAdded(true)
-            // setId("")
-            // setName("")
-            // setCategory("-- Select Category --")
-            // setAmount("")
-
         }
 
         else {
@@ -80,13 +74,14 @@ function AddItems() {
         setBack(true)
     }
 
+    // Navigation handling:
     if (added || back) {
         return (
             <Redirect to='/'  />
         )
     }
 
-    
+    //HTML for Add Item page:
     return (
         <Container>
 
@@ -99,17 +94,6 @@ function AddItems() {
                 <h3 className="display-6 text-center">
                     New Expense
                 </h3>
-                {/* <div className="text-center">
-                    <p>
-                        Total Spendings:{' '}
-                        <span className="text-success">
-                            ${' '}
-                            {items.reduce((accumulator, currentValue) => {
-                                return (accumulator += parseInt(currentValue.amount))
-                            }, 0)}
-                        </span>
-                    </p>
-                </div> */}
                 <InputForm
                     name={name}
                     category={category}

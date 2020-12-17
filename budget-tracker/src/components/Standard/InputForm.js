@@ -2,7 +2,9 @@ import React from 'react';
 import { Form, FormGroup, Input, Label, Col, Button } from 'reactstrap';
 import DatePicker from "react-datepicker";
 
-const InputForm = ({name, handleName,  category, handleCategory, amount, handleAmount, date, handleDate, handleSubmitForm}) => (
+// INPUT FORM COMPONENT: displays the date, name, category, and amount as input fields for a new expense
+
+const InputForm = ({name, handleName, category, handleCategory, amount, handleAmount, date, handleDate, handleSubmitForm}) => (
   <Form style={{ margin: 10 }}>
     <FormGroup className="row">
       <Label sm={2}>
