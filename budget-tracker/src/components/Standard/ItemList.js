@@ -62,8 +62,8 @@ const ItemList = ({ items, handleDeleteItem }) => {
               {confirmDelete && selectedItem === item.id? 
 
                 (
-                  <div><Button style={{paddingRight: '10px'}} color="danger" value={item.id} onClick={handleDeleteItem}>Delete</Button>
-                  <Button outline color="secondary" onClick={toggleConfirmation}>Cancel</Button></div>
+                  <div><Button block color="danger" value={item.id} onClick={handleDeleteItem}>Delete</Button>
+                  <Button block outline color="secondary" onClick={toggleConfirmation}>Cancel</Button></div>
                 )
                 :
                 (<Button color="danger" outline onClick={() => {setSelectedItem(item.id); toggleConfirmation()}}><FaTrash/></Button>)

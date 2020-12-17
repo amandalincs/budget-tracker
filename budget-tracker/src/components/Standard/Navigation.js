@@ -47,17 +47,6 @@ const MainNav = () => {
         <Styles>
             <Navbar className="navbar" expand="lg">
                 <Navbar.Brand >Budget Tracker</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="ml-auto nav">
-
-                        <Link to="/dashboard">Dashboard</Link>
-                        {/* <Link to="/">Add Items</Link> */}
-
-
-
-                    </Nav>
-                </Navbar.Collapse>
             </Navbar>
         </Styles>
     );

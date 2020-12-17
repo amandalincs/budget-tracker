@@ -59,11 +59,13 @@ function Dashboard() {
 
     const handleDeleteAllItems = () => {
         setItems([])
-        localStorage.clear()        
+        setProcessedItems([])
+        localStorage.clear() 
+        toggleModal()       
     }
 
     const handleDeleteItem = (event) => {
-        let id = event.target.value
+        let id = event.target.value     
         let new_items = items.filter( (expense) => {
             return expense.id !== id
         })
@@ -184,7 +186,20 @@ function Dashboard() {
                 <Card style={{marginTop: 20}}>
                 <CardBody>
                     <div className="data-header">
-                        <span>All Expenses</span>
+                        <div>
+                        <span style={{marginRight: '10px'}}>All Expenses</span>
+                        {items.length > 0 && <Button outline color="danger" onClick={toggleModal}>Clear All</Button>}
+                            <Modal isOpen={deleteModal} toggle={toggleModal} className="">
+                                <ModalHeader toggle={toggleModal}>Are you sure?</ModalHeader>
+                                <ModalBody>
+                                    You are about to delete all expenses.
+                                </ModalBody>
+                                <ModalFooter>
+                                <Button color="danger" onClick={handleDeleteAllItems}>Delete</Button>{' '}
+                                <Button color="secondary" onClick={toggleModal}>Cancel</Button>
+                                </ModalFooter>
+                            </Modal>
+                        </div>
                         <div>
                             <span>
                                 <Select
@@ -207,18 +222,7 @@ function Dashboard() {
 
                                     </Select>
                             </span>
-                    
-                            {items.length > 0 && <Button outline color="danger" onClick={toggleModal}>Clear All</Button>}
-                            <Modal isOpen={deleteModal} toggle={toggleModal} className="">
-                                <ModalHeader toggle={toggleModal}>Are you sure?</ModalHeader>
-                                <ModalBody>
-                                    You are about to delete all expenses.
-                                </ModalBody>
-                                <ModalFooter>
-                                <Button color="danger" onClick={handleDeleteAllItems}>Delete</Button>{' '}
-                                <Button color="secondary" onClick={toggleModal}>Cancel</Button>
-                                </ModalFooter>
-                            </Modal>
+                
                         </div>
                     
                     </div>
