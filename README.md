@@ -26,10 +26,10 @@ This project will be a Budget Tracker application. This budget tracker applicati
   
  
  ## Resources
- https://create-react-app.dev/docs/getting-started/
- https://reactstrap.github.io/components/layout/
- https://www.robinwieruch.de/local-storage-react
- https://stackoverflow.com/questions/36771017/what-is-the-equivalent-to-ng-if-in-react-js
- https://reactjs.org/docs/components-and-props.html
- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+ - https://create-react-app.dev/docs/getting-started/
+ - https://reactstrap.github.io/components/layout/
+ - https://www.robinwieruch.de/local-storage-react
+ - https://stackoverflow.com/questions/36771017/what-is-the-equivalent-to-ng-if-in-react-js
+ - https://reactjs.org/docs/components-and-props.html
+ - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
  
