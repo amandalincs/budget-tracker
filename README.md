@@ -24,7 +24,6 @@ This project will be a Budget Tracker application. This budget tracker applicati
 - Responsive to all device screen types
   - Will utilize grids
   
- ## Validity
  
  ## Resources
  https://create-react-app.dev/docs/getting-started/
