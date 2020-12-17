@@ -6,9 +6,21 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import styled from 'styled-components';
+import { FaTrash } from 'react-icons/fa';
+import { Button } from 'reactstrap';
 
-const ItemList = ({ items }) => (
-  <div>
+
+const Styles = styled.div`
+    
+`;
+
+const handleIconClick = (event) =>{
+  return event.stopPropogration
+}
+
+const ItemList = ({ items, handleDeleteItem }) => (
+  <Styles>
     {/* <ListGroup >
       {items.map(item => (
         <ListGroupItem key={item.id}>
@@ -24,6 +36,8 @@ const ItemList = ({ items }) => (
             <TableCell align="right">Name</TableCell>
             <TableCell align="right">Category</TableCell>
             <TableCell align="right">Amount</TableCell>
+            <TableCell align="right"></TableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -35,12 +49,14 @@ const ItemList = ({ items }) => (
               <TableCell align="right">{item.name}</TableCell>
               <TableCell align="right">{item.category}</TableCell>
               <TableCell align="right">  ${item.amount}</TableCell>
+              <TableCell align="right"> <Button color="danger" outline value={item.id} onClick={handleDeleteItem}><FaTrash/></Button></TableCell>
+
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-  </div>
+  </Styles>
 )
 
 export default ItemList;
